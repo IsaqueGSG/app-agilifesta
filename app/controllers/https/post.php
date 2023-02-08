@@ -16,16 +16,11 @@ $dados = array(
     "hora" => $_POST['hora'],
 ) ;
 
-$iniciar = curl_init($url_post ) ; //iniciando requisicao
-
-
-curl_setopt($iniciar, CURLOPT_RETURNTRANSFER, true ) ;
-curl_setopt($iniciar, CURLOPT_POST, true ) ; //setando metodo POST
-curl_setopt($iniciar, CURLOPT_POSTFIELDS, $dados ) ; //preparando dados para envio
-
-
-curl_exec($iniciar); //enviando dados
-
-curl_close($iniciar) ; //fechando requisicao
+$curl = curl_init($url_post ) ; //iniciando requisicao
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true ) ;
+    curl_setopt($curl, CURLOPT_POST, true ) ; //setando metodo POST
+    curl_setopt($curl, CURLOPT_POSTFIELDS, $dados ) ; //preparando dados para envio
+    curl_exec($curl); //enviando dados
+    curl_close($curl) ; //fechando requisicao
 
 header("location: ../../app.php");//retornando a aplicacao

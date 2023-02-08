@@ -1,8 +1,10 @@
 <?php
 
 use LDAP\Result;
+use Slim\Http\Request;
 
 require_once "controllers/login/validador_acesso.php"; 
+
 ?>
 
 <html>
@@ -11,7 +13,6 @@ require_once "controllers/login/validador_acesso.php";
     <title>App Agili Festa</title>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    
     
     <style>
       .card-consultar-chamado {
@@ -141,7 +142,6 @@ require_once "controllers/login/validador_acesso.php";
                         </div>
                       </div>
                     
-
                         <div class="col">
                         <input class="btn btn-lg btn-info btn-block" type="button" id="btn_submit" value="Cadastrar Evento"  >
                           
@@ -166,14 +166,8 @@ require_once "controllers/login/validador_acesso.php";
             
             <div class="card-body">
             <?php
-
-              include "controllers/https/get.php" ;
-           
-              $resp = json_decode($resp) ;
-              $resp = array_reverse($resp);
-
-              foreach ($resp as $evento){
-                
+              include "controllers/https/get.php";
+              foreach ( $response as $evento){
             ?>  
 
               <div class="card mb-3 bg-light">
@@ -184,9 +178,9 @@ require_once "controllers/login/validador_acesso.php";
                     <p class="card-text"> Endereço: <?= $evento->endereco . " - " . $evento->cep ?> </p>
                     <p class="card-text"> Orgazinador: <?= $evento->organizador . " - " . $evento->cpf ?> </p>
 
-                    <button class="btn btn-lg btn-danger mr-4" onclick="teste_DEL(<?= $evento->id ?>)">
-                      &#10008; Excluir Evento
-                    </button>
+                    <a class="btn btn-lg btn-danger mr-4" href="controllers/https/delete.php?id=<?= $evento->id ?>">
+                    &#10008; Excluir Evento
+                    </a>
 
                     <a class="btn btn-lg btn-info mr-4" href="edit.php?id=<?= $evento->id ?>">
                       &#9998; Editar Evento
@@ -199,7 +193,6 @@ require_once "controllers/login/validador_acesso.php";
                     <p class="card-text " style="height: 150px ; overflow: auto"> 
                       <?php
                         $convidados = explode("/",$evento->lista_convidados);
-                        
                        
                         foreach($convidados as $convidado){
                           echo $convidado . "</br>";

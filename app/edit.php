@@ -1,17 +1,8 @@
 <?php
 
+use Illuminate\Support\Facades\Response;
+
 require_once "controllers/login/validador_acesso.php"; 
-
-$id_get = $_GET["id"];
-
-include "controllers/https/get.php";
-
-$resp = json_decode($resp,true) ;
-// print_r($resp);
-
-$array = $resp[0] ;
-// print_r($array)
-
 ?>
 
 <html>
@@ -63,16 +54,22 @@ $array = $resp[0] ;
             </div>
             <div class="card-body">
               <form id="form" method="post" action="controllers/https/put.php">
-                <input type="hidden" id="id" name="id" value="<?= $array["id"] ?>">
+
+                <?php
+                  include "controllers/https/Api_request.php";
+                  $API = new Requests;
+                  $response = $API->get($_GET["id"])[0];
+                ?>
+                <input type="hidden" id="id" name="id" value="<?= $response->id ?>">
                 <div class="row">
                   <div class="col">
                     
                       <div class="form-group">
-                        <label>Título <?= $array["categoria"] ?></label>
-                        <input type="text" class="form-control" placeholder="Título" name="titulo" id="titulo" value="<?= $array["titulo"] ?>">
+                        <label>Título <?= $response->categoria ?></label>
+                        <input type="text" class="form-control" placeholder="Título" name="titulo" id="titulo" value="<?= $response->titulo ?>">
                       </div>
                       
-                      <input type="hidden" name="categoria_pass" id="categoria_pass" value=" <?= $array["categoria"] ?>">
+                      <input type="hidden" name="categoria_pass" id="categoria_pass" value=" <?= $response->categoria ?>">
                       <div class="form-group">
                         <label>Categoria</label>
                         <select class="form-control" name="categoria" id="categoria">
@@ -109,7 +106,7 @@ $array = $resp[0] ;
                           <tbody id="Tbody_convidados" ></tbody>
                         </table>
 
-                        <input type="hidden" id="lista_convidados" name="lista_convidados" value="<?= $array["lista_convidados"] ?>">
+                        <input type="hidden" id="lista_convidados" name="lista_convidados" value="<?= $response->lista_convidados ?>">
                       </div>
                      
                   </div>
@@ -121,12 +118,12 @@ $array = $resp[0] ;
                         <div class="col-8">
 
                           <label>Organizador</label>
-                          <input type="text" class="form-control" placeholder="Organizador" name="organizador" id="organizador" value="<?= $array["organizador"] ?>">
+                          <input type="text" class="form-control" placeholder="Organizador" name="organizador" id="organizador" value="<?= $response->organizador?>">
                         </div>
                         <div class="col">
 
                           <label>CPF</label>
-                          <input type="text" class="form-control" placeholder="CPF" name="cpf" id="cpf_organizador" value="<?= $array["cpf"] ?>">
+                          <input type="text" class="form-control" placeholder="CPF" name="cpf" id="cpf_organizador" value="<?= $response->cpf ?>">
                         </div>
                       </div>
                       
@@ -134,12 +131,12 @@ $array = $resp[0] ;
                         <div class="col-8">
 
                           <label>Endereço</label>
-                          <input type="text" class="form-control" placeholder="Endereco" name="endereco" id="endereco" value="<?= $array["endereco"] ?>">
+                          <input type="text" class="form-control" placeholder="Endereco" name="endereco" id="endereco" value="<?= $response->endereco ?>">
                         </div>
                         <div class="col">
 
                           <label>Cep</label>
-                          <input type="text" class="form-control" placeholder="Cep" name="cep" id="cep" value="<?= $array["cep"] ?>">
+                          <input type="text" class="form-control" placeholder="Cep" name="cep" id="cep" value="<?= $response->cep ?>">
                         </div>
                       </div>
                       
@@ -147,19 +144,19 @@ $array = $resp[0] ;
                         <div class="col-8">
 
                           <label>Data</label>
-                          <input type="date" class="form-control" name="data" id="data" value="<?= $array["data"] ?>">
+                          <input type="date" class="form-control" name="data" id="data" value="<?= $response->data ?>">
                         </div>
                         <div class="col">
 
                           <label>Hora</label>
-                          <input type="time" class="form-control" name="hora" id="hora" value="<?= $array["hora"] ?>">
+                          <input type="time" class="form-control" name="hora" id="hora" value="<?= $response->hora ?>">
                         </div>
                     </div>
                     <div class="form-group col">
                     
                         <input class="btn btn-lg btn-success " type="button" value="&#10004; Atualizar Evento " id="btn_submit" />
                        
-                        <a class="btn btn-lg btn-danger " href="../v1/app.php">&#10008; Cancelar</a>                    
+                        <a class="btn btn-lg btn-danger " href="./app.php">&#10008; Cancelar</a>                    
                     </div>
                     
                   </div>

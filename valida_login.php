@@ -18,12 +18,15 @@
     //usuarios do sistema
     $perfis = array(
        1=> "Gestor" , 
-       2=> "Usuario"
     ) ;
 
     $contas_autenticadas= array(
-        array("id"=> 2, "email"=> "user@user", "senha"=>"user", "perfil_id"=>2),
-        array("id"=> 1, "email"=>"adm@adm", "senha"=>"adm", "perfil_id"=>1),
+        array(
+            "id"=> 1, 
+            "email"=>"adm@adm", 
+            "senha"=>"adm", 
+            "perfil_id"=>1
+        )
     );
 
     //autenticando usuario

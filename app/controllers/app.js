@@ -133,34 +133,13 @@ function cadastrar_convidado( convidado = document.getElementById("convidado").v
 }
 
 
-
-
-function teste_DEL(id){
-
-    fetch( `http://localhost/App_agilifesta/API_agilifesta/delete/${id}` ,{
-        method: "DELETE",
-        // headers: {
-        //     "Content-type": "application/json"
-        // }
-    })
-    .then(resp => {
-        if (resp.ok){
-
-            window.location.reload(true);
-        }
-    })
-
-}
-
 function passaID(id){
-    id_edit = document.querySelector("#id_edit")
-    id_edit.value = id
+    document.querySelector("#id_edit").value = id
 }
 
 function passa_convidados(){
 
-    document.querySelector("#lista_convidados").value = ""  
-
+    document.querySelector("#lista_convidados").value = ""
     let array_convidados =  bd.recuperarRegistros()      
 
     array_convidados.forEach(convidados => {
@@ -173,6 +152,5 @@ btn_submit = document.getElementById("btn_submit")
 btn_submit.addEventListener("click" , ()=>{
 
     passa_convidados()
-
     document.querySelector("#form").submit()
 })
